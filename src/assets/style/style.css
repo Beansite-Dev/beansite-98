@@ -92,6 +92,7 @@
   transition: 0.35s;
   min-height: 240px;
   min-width: 320px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5215686275);
 }
 .window .contentWrapper {
   position: absolute;
@@ -147,22 +148,36 @@
 .window .titlebar h1 {
   position: absolute;
   font-size: 1rem;
-  left: 5px;
+  left: 0.5rem;
+  padding-left: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
   color: #fff;
 }
+.window .titlebar h1 img {
+  width: 1rem;
+  aspect-ratio: 1/1;
+  margin-right: 0.35rem;
+  position: absolute;
+  top: 50%;
+  left: 0rem;
+  transform: translateY(-50%);
+}
 
 #startmenu {
   position: fixed;
+  left: -25dvw;
   bottom: 45px;
   height: 53dvh;
-  width: 17dvw;
+  width: 20dvw;
   background: darkgray;
   z-index: 999;
   border: 3px outset gray;
-  padding-left: 55px;
   padding: 5px;
+  padding-left: 55px;
+  box-sizing: border-box;
+  transition: 0.35s;
+  transition-timing-function: ease-in;
 }
 #startmenu .shortcut {
   height: 50px;
@@ -170,9 +185,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
   background: darkgray;
+  padding: 15px;
   border: 3px outset gray;
+  transition: 0.35s;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4588235294);
+  position: relative;
+  cursor: pointer;
+}
+#startmenu .shortcut:active {
+  border: 3px inset gray;
+}
+#startmenu .shortcut * {
+  user-select: none;
+}
+#startmenu .shortcut:hover {
+  transform: translateY(-3.5px);
+  box-shadow: 0px 3.5px 5px rgba(0, 0, 0, 0.4588235294);
 }
 #startmenu .shortcut img {
   height: 1.75rem;
@@ -180,8 +209,21 @@
   padding-right: 0.75rem;
 }
 #startmenu .shortcut h1 {
+  text-align: left;
+  text-wrap: nowrap;
   font-size: 1.75rem;
   display: inline;
+  width: calc(100% - 1.75rem);
+  overflow: hidden;
+}
+#startmenu .shortcut h1::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(90deg, rgba(169, 169, 169, 0) 30%, darkgray 70%);
 }
 #startmenu .sidebar {
   position: absolute;
@@ -208,11 +250,39 @@
   height: 45px;
   width: 100dvw;
   position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
   z-index: 956;
   bottom: 0;
   left: 0;
   background: darkgray;
   border: 2px outset gray;
+}
+#taskbar .taskbar-icon {
+  height: 100%;
+  width: auto;
+  padding: 10px;
+  background: darkgray;
+  border: 2px outset gray;
+  font-size: 0.75rem;
+  line-height: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+#taskbar .taskbar-icon:active {
+  border: 2px inset gray;
+}
+#taskbar .taskbar-icon img {
+  height: 1.5rem;
+  display: inline;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  aspect-ratio: 1/1;
 }
 #taskbar #start {
   height: 100%;
@@ -224,6 +294,7 @@
   line-height: 0;
   cursor: pointer;
   display: flex;
+  margin-right: 5px;
   justify-content: center;
   align-items: center;
 }

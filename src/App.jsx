@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
@@ -6,6 +7,16 @@ import { useState, useEffect } from 'react'
 import './assets/style/style.css'
 import beanIcon from './assets/bean-icon.png'
 import smily from './assets/icons/smily.webp'
+import game from './assets/icons/game.png'
+
+const toBool = (string) => {
+  return string=="true" ? true : (string=="false") ? false : console.error('invalid input');
+}, 
+styleToString = (style) => {
+  return Object.keys(style).reduce((acc, key) => (
+      acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+  ), '');
+}
 
 const App = () => {
   const generateNewID = () => {
@@ -20,11 +31,11 @@ const App = () => {
     }
     return btoa(result);
   },
-  [wins, setWins] = useState([
-    //template
-    {
+  WindowTemplates = {
+    "GetStarted": {
       "name": "Get Started",
       "id": generateNewID(),
+      "icon": smily,
       "winContents":
       <>
         <h1>Welcome to Beansite 98</h1>
@@ -40,19 +51,35 @@ const App = () => {
         "maximize": true, 
         "minimize": true, 
       }
-    }
+    },
+    "Games": {
+      "name": "Games",
+      "id": generateNewID(),
+      "icon": game,
+      "winContents":
+      <>
+        <h1>Games</h1>
+      </>,
+      "defaultStyling": {
+        "height": "350px",
+        "width": "500px",
+        "top": "10vmin",
+        "left": "10vmin",
+      },
+      "incluseTitlebarButtons": {
+        "close": true, 
+        "maximize": true, 
+        "minimize": true, 
+      }
+    },
+  },
+  [wins, setWins] = useState([
+    //template
+    WindowTemplates.GetStarted
   ]),
   // icons: 🗙 🗕 🗖 🗗
   Window = (prop) => {
-    const toBool = (string) => {
-      return string=="true" ? true : (string=="false") ? false : console.error('invalid input');
-    }, 
-    styleToString = (style) => {
-      return Object.keys(style).reduce((acc, key) => (
-          acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
-      ), '');
-    }, 
-    handleClose = (e, id) => {
+    const handleClose = (e, id) => {
       e.preventDefault();
       setWins(wins.filter(data => data.id !== id))
     },
@@ -153,11 +180,12 @@ const App = () => {
         ? document.getElementById(prop.id).style.transition = "0s"
         : null
       }).observe(document.getElementById(prop.id));
+      // document.getElementById('startmenu').style.left="-17dvw";
     }, []);
     return (
       <div className='window' id={prop.id} style={prop.defaultStyling}>
         <div className='titlebar' id={`${prop.id}header`}>
-          <h1>{prop.title}</h1>
+          <h1><img src={prop.icon}/>{prop.title}</h1>
           { prop.includeButtons.close ? <button id={`${prop.id}del`} onClick={() => handleClose(event, prop.id)}>🗙</button> : null}
           { prop.includeButtons.maximize ? <button id={`${prop.id}max`} onClick={() => handleMaximize(event, prop.id, prop.defaultStyling)}>🗖</button> : null}
           { prop.includeButtons.minimize ? <button id={`${prop.id}min`} onClick={() => handleMinimize(event, prop.id, prop.defaultStyling)}>🗕</button> : null}
@@ -170,10 +198,21 @@ const App = () => {
       </div>
     )
   },
+  toggleStartMenu = (e) => {
+    e.preventDefault();
+    const isOpen = document.getElementById('sm?isOpen');
+    if (toBool(isOpen.content)) {
+      document.getElementById('startmenu').style.left="-25dvw";
+      isOpen.content = "false";
+    } else if (!toBool(isOpen.content)) {
+      document.getElementById('startmenu').style.left="0";
+      isOpen.content = "true";
+    }
+  },
   Taskbar = (prop) => {
     return (
       <div id='taskbar'>
-        <button id='start'><img src={beanIcon} />Start</button>
+        <button id='start' onClick={(e) => toggleStartMenu(e)} ><img src={beanIcon} />Start</button>
         {prop.children}
       </div>
     )
@@ -181,16 +220,33 @@ const App = () => {
   StartMenu = (prop) => {
     return (
       <div id='startmenu'>
+        <meta id="sm?isOpen" content='false' />
         <div className="sidebar">
           <h1>Windows 98</h1>
         </div>
         {prop.children}
       </div>
     )
-  }
-  const StartMenuShortcut = (prop) => {
+  },
+  createNewWindow = (e, windowTemplate) => {
+    e.preventDefault();
+    for (let i = 0;i < wins.length; i++) if ( wins[i].id==windowTemplate.id ) return null;
+    setWins([
+      ...wins,
+      windowTemplate
+    ])
+  },
+  StartMenuShortcut = (prop) => {
     return (
-      <div className="shortcut">
+      <div className="shortcut" onClick={(e) => createNewWindow(e, prop.windowTemplate)}>
+        <img src={prop.windowTemplate.icon} />
+        <h1>{prop.windowTemplate.name}</h1>
+      </div>
+    )
+  }
+  const TaskbarIcon = (prop) => {
+    return (
+      <div className="taskbar-icon">
         <img src={prop.iconPath} />
         <h1>{prop.title}</h1>
       </div>
@@ -199,15 +255,18 @@ const App = () => {
   return (
     <div className='main'>
       {wins.map((data) => 
-        <Window key={data.id} id={data.id} title={data.name}  defaultStyling={data.defaultStyling} includeButtons={ data.incluseTitlebarButtons }>
+        <Window key={data.id} id={data.id} title={data.name} icon={data.icon} defaultStyling={data.defaultStyling} includeButtons={ data.incluseTitlebarButtons }>
           {data.winContents}
         </Window>
       )}
       <StartMenu>
-        <StartMenuShortcut title="Get Started" iconPath={smily} />
+        <StartMenuShortcut windowTemplate={WindowTemplates.GetStarted} />
+        <StartMenuShortcut windowTemplate={WindowTemplates.Games} />
       </StartMenu>
       <Taskbar>
-
+        {wins.map((data) => 
+          <TaskbarIcon key={data.id} id={data.id} title={data.name} iconPath={data.icon} defaultStyling={data.defaultStyling} includeButtons={ data.incluseTitlebarButtons } />
+        )}
       </Taskbar>
     </div>
   )

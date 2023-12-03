@@ -1,0 +1,239 @@
+@font-face {
+  font-family: "main";
+  src: url("../fonts/main.ttf");
+}
+@font-face {
+  font-family: "logo";
+  src: url("../fonts/logo.woff");
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  outline: 1px outset rgb(167, 167, 167);
+  box-sizing: border-box;
+  background: #cecece;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(155, 155, 155);
+  outline: 1px outset rgb(167, 167, 167);
+  box-sizing: border-box;
+}
+
+.main {
+  height: 100dvh;
+  width: 100dvw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgb(0, 128, 128);
+}
+.main, .main * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "main";
+  font-weight: normal;
+}
+.main #contextMenu {
+  padding: 1px;
+  background: lightgray;
+  border: 1px outset gray;
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.main #contextMenu hr {
+  height: 1px;
+  width: 100%;
+  border: none;
+  margin: 2px;
+  background: gray;
+}
+.main #contextMenu button {
+  width: 100%;
+  padding: 2.5px;
+  text-align: left;
+  width: 150px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  padding-left: 25px;
+  cursor: pointer;
+  position: relative;
+}
+.main #contextMenu button:hover {
+  background: #e7e7e7;
+}
+.main #contextMenu button img {
+  width: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 3.5px;
+  transform: translateY(-50%);
+}
+
+.window {
+  position: absolute;
+  background-image: url("../grid.png");
+  background-repeat: repeat;
+  background-size: 16px 16px;
+  border: 3px outset lightgray;
+  padding: 2vmin;
+  padding-top: calc(25px + 2vmin);
+  resize: both;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: 0.35s;
+  min-height: 240px;
+  min-width: 320px;
+}
+.window .contentWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 25px);
+  padding: 2vmin;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.window .contentWrapper, .window .contentWrapper * {
+  word-wrap: break-word;
+  text-wrap: wrap;
+}
+.window .titlebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 100%;
+  background: linear-gradient(90deg, navy, lightblue);
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  border-bottom: 2px solid darkgray;
+  align-items: center;
+  cursor: grab;
+}
+.window .titlebar:active {
+  cursor: grabbing;
+}
+.window .titlebar button {
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: lightgray;
+  border: 2px outset darkgray;
+  cursor: pointer;
+  transition: 0.35s;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0;
+  user-select: none;
+}
+.window .titlebar button:hover {
+  border-color: navy;
+}
+.window .titlebar button:active {
+  border-style: inset;
+}
+.window .titlebar h1 {
+  position: absolute;
+  font-size: 1rem;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+}
+
+#startmenu {
+  position: fixed;
+  bottom: 45px;
+  height: 53dvh;
+  width: 17dvw;
+  background: darkgray;
+  z-index: 999;
+  border: 3px outset gray;
+  padding-left: 55px;
+  padding: 5px;
+}
+#startmenu .shortcut {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: darkgray;
+  border: 3px outset gray;
+}
+#startmenu .shortcut img {
+  height: 1.75rem;
+  display: inline;
+  padding-right: 0.75rem;
+}
+#startmenu .shortcut h1 {
+  font-size: 1.75rem;
+  display: inline;
+}
+#startmenu .sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(lightblue, navy);
+  position: absolute;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10px;
+  font-size: 1rem;
+}
+#startmenu .sidebar * {
+  user-select: none;
+}
+
+#taskbar {
+  height: 45px;
+  width: 100dvw;
+  position: fixed;
+  z-index: 956;
+  bottom: 0;
+  left: 0;
+  background: darkgray;
+  border: 2px outset gray;
+}
+#taskbar #start {
+  height: 100%;
+  width: auto;
+  padding: 10px;
+  background: darkgray;
+  border: 2px outset gray;
+  font-size: 1.5rem;
+  line-height: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#taskbar #start:active {
+  border: 2px inset gray;
+}
+#taskbar #start img {
+  height: 1.5rem;
+  display: inline;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  aspect-ratio: 0.5/1;
+}/*# sourceMappingURL=style.css.map */

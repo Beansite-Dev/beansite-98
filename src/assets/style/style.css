@@ -260,9 +260,13 @@
   flex-direction: row;
   z-index: 956;
   bottom: 0;
+  padding: 2px;
   left: 0;
   background: darkgray;
   border: 2px outset gray;
+}
+#taskbar * {
+  margin-right: 2.5px;
 }
 #taskbar .taskbar-icon {
   height: 100%;
@@ -276,7 +280,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 5px;
 }
 #taskbar .taskbar-icon:active {
   border: 2px inset gray;
@@ -298,7 +301,6 @@
   line-height: 0;
   cursor: pointer;
   display: flex;
-  margin-right: 5px;
   justify-content: center;
   align-items: center;
 }
@@ -321,22 +323,119 @@
   left: 0;
   background: #000;
   padding: 0.5rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 #cmd, #cmd * {
   font-family: "cmd";
   font-weight: normal;
   font-size: 1rem;
+  line-height: 1rem;
   color: #fff;
+  word-wrap: break-word;
+  text-wrap: wrap;
 }
-#cmd p {
-  display: inline;
+#cmd div {
+  display: inline-block;
+}
+#cmd .red {
+  color: red;
+}
+#cmd .orange {
+  color: orange;
+}
+#cmd .yellow {
+  color: yellow;
+}
+#cmd .green {
+  color: green;
+}
+#cmd .blue {
+  color: blue;
+}
+#cmd .purple {
+  color: purple;
+}
+#cmd .darkred {
+  color: darkred;
+}
+#cmd .darkorange {
+  color: darkorange;
+}
+#cmd .darkgreen {
+  color: darkgreen;
+}
+#cmd .darkblue {
+  color: darkblue;
+}
+#cmd .lightyellow {
+  color: lightyellow;
+}
+#cmd .lightgreen {
+  color: lightgreen;
+}
+#cmd .lightblue {
+  color: lightblue;
+}
+#cmd .error {
+  color: #ff0000;
+}
+#cmd .success {
+  color: #00ff00;
+}
+#cmd .rainbow {
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 #cmd input {
   background: none;
   outline: none;
   border: none;
+  width: 85%;
 }
-#cmd input::selection {
+#cmd::selection, #cmd *::selection {
   background: #fff;
   color: #000;
+}
+
+.np-edit {
+  height: calc(100% - 25px);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  outline: none;
+  background: #fff;
+}
+.np-edit, .np-edit * {
+  font-family: "cmd";
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #000;
+}
+
+.np-header {
+  background: #e3e3e3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.np-header a {
+  height: 100%;
+  width: auto;
+  padding: 5px;
+  background: #cdcdcd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

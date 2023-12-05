@@ -4,13 +4,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 
-import { useState, useEffect } from 'react'
-import './assets/style/style.css'
-import beanIcon from './assets/bean-icon.png'
-import smily from './assets/icons/smily.webp'
-import game from './assets/icons/game.png'
-import dosico from './assets/icons/dos.png'
-import CMD from './cmd'
+import { useState, useEffect } from 'react';
+import CMD from './cmd';
+import Notepad from './notepad'
+import './assets/style/style.css';
+
+import beanIcon from './assets/bean-icon.png';
+import smily from './assets/icons/smily.webp';
+import game from './assets/icons/game.png';
+import dosico from './assets/icons/dos.png';
+import notepad from './assets/icons/notepad.png';
 
 const toBool = (string) => {
   return string=="true" ? true : (string=="false") ? false : console.error('invalid input');
@@ -24,7 +27,7 @@ styleToString = (style) => {
 const App = () => {
   const generateNewID = (seed) => {
     try {
-      let length = 50,
+      let length = seed.length,
           result = '', 
           characters = `0123456789!@#$%^&*()-_=+[{]}|;:"'<>,./?~aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ`, 
           charactersLength = characters.length,
@@ -84,7 +87,7 @@ const App = () => {
       }
     },
     "DOS": {
-      "name": "FireBean DOS",
+      "name": "MicroBean DOS",
       "id": generateNewID('0384023941'),
       "icon": dosico,
       "winContents":
@@ -94,8 +97,28 @@ const App = () => {
       "defaultStyling": {
         "height": "350px",
         "width": "500px",
-        "top": "10vmin",
-        "left": "10vmin",
+        "top": "15vmin",
+        "left": "15vmin",
+      },
+      "incluseTitlebarButtons": {
+        "close": true, 
+        "maximize": true, 
+        "minimize": true, 
+      }
+    },
+    "Notepad": {
+      "name": "Notepad",
+      "id": generateNewID('8853467239'),
+      "icon": notepad,
+      "winContents":
+      <>
+        <Notepad />
+      </>,
+      "defaultStyling": {
+        "height": "350px",
+        "width": "500px",
+        "top": "20vmin",
+        "left": "20vmin",
       },
       "incluseTitlebarButtons": {
         "close": true, 
@@ -294,6 +317,7 @@ const App = () => {
         <StartMenuShortcut windowTemplate={WindowTemplates.GetStarted} />
         <StartMenuShortcut windowTemplate={WindowTemplates.Games} />
         <StartMenuShortcut windowTemplate={WindowTemplates.DOS} />
+        <StartMenuShortcut windowTemplate={WindowTemplates.Notepad} />
       </StartMenu>
       <Taskbar>
         {wins.map((data) => 

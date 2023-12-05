@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
@@ -8,6 +9,8 @@ import './assets/style/style.css'
 import beanIcon from './assets/bean-icon.png'
 import smily from './assets/icons/smily.webp'
 import game from './assets/icons/game.png'
+import dosico from './assets/icons/dos.png'
+import CMD from './cmd'
 
 const toBool = (string) => {
   return string=="true" ? true : (string=="false") ? false : console.error('invalid input');
@@ -19,22 +22,30 @@ styleToString = (style) => {
 }
 
 const App = () => {
-  const generateNewID = () => {
-    let length = 50,
-        result = '', 
-        characters = `0123456789!@#$%^&*()-_=+[{]}|;:"'<>,./?~aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ`, 
-        charactersLength = characters.length,
-        counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
+  const generateNewID = (seed) => {
+    try {
+      let length = 50,
+          result = '', 
+          characters = `0123456789!@#$%^&*()-_=+[{]}|;:"'<>,./?~aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ`, 
+          charactersLength = characters.length,
+          counter = 0,
+          seedSplit=seed.split('');
+      while (counter < length) {
+        result += characters.charAt(seedSplit[Number(counter)]);
+        counter += 1;
+      }
+      let finalresult = btoa(result)
+      // console.log(finalresult)
+      return finalresult;
+    } catch (e) {
+      console.error(e);
+      return null;
     }
-    return btoa(result);
   },
   WindowTemplates = {
     "GetStarted": {
       "name": "Get Started",
-      "id": generateNewID(),
+      "id": generateNewID('1326349405'),
       "icon": smily,
       "winContents":
       <>
@@ -54,11 +65,31 @@ const App = () => {
     },
     "Games": {
       "name": "Games",
-      "id": generateNewID(),
+      "id": generateNewID('7953467823'),
       "icon": game,
       "winContents":
       <>
         <h1>Games</h1>
+      </>,
+      "defaultStyling": {
+        "height": "350px",
+        "width": "500px",
+        "top": "10vmin",
+        "left": "10vmin",
+      },
+      "incluseTitlebarButtons": {
+        "close": true, 
+        "maximize": true, 
+        "minimize": true, 
+      }
+    },
+    "DOS": {
+      "name": "FireBean DOS",
+      "id": generateNewID('0384023941'),
+      "icon": dosico,
+      "winContents":
+      <>
+        <CMD />
       </>,
       "defaultStyling": {
         "height": "350px",
@@ -262,6 +293,7 @@ const App = () => {
       <StartMenu>
         <StartMenuShortcut windowTemplate={WindowTemplates.GetStarted} />
         <StartMenuShortcut windowTemplate={WindowTemplates.Games} />
+        <StartMenuShortcut windowTemplate={WindowTemplates.DOS} />
       </StartMenu>
       <Taskbar>
         {wins.map((data) => 

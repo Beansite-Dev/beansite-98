@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import ReactDOMServer from "react-dom/server";
 
 const Notepad = () => {
     return (
@@ -8,6 +9,7 @@ const Notepad = () => {
                     e.preventDefault();
                     // proof of concept
                     // document.body.innerHTML = document.getElementById('np-edit').innerHTML;
+                    // document.getElementById('render').srcdoc = toString(document.getElementById('np-edit').innerHTML);
                 }}>Run</a>
             </div>
             <div contentEditable onKeyDown={(e) => {

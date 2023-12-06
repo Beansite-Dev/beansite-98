@@ -405,3 +405,12 @@ $np-header-height: 25px;
         cursor: pointer;
     }
 }
+#render {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

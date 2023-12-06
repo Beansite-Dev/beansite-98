@@ -126,6 +126,28 @@ const App = () => {
         "minimize": true, 
       }
     },
+    "NotepadHTMLRender": {
+      "name": "index.html",
+      "id": generateNewID('8928409234'),
+      "icon": notepad,
+      "winContents":
+      <>
+        <iframe id="render" frameBorder="0">
+
+        </iframe>
+      </>,
+      "defaultStyling": {
+        "height": "350px",
+        "width": "500px",
+        "top": "25vmin",
+        "left": "25vmin",
+      },
+      "incluseTitlebarButtons": {
+        "close": true, 
+        "maximize": true, 
+        "minimize": true, 
+      }
+    },
   },
   [wins, setWins] = useState([
     //template

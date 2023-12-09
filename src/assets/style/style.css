@@ -150,6 +150,7 @@
   border-style: inset;
 }
 .window .titlebar h1 {
+  user-select: none;
   position: absolute;
   font-size: 1rem;
   left: 0.5rem;
@@ -184,6 +185,7 @@
   transition-timing-function: ease-in;
 }
 #startmenu .shortcut {
+  user-select: none;
   height: 50px;
   width: 100%;
   display: flex;
@@ -438,4 +440,15 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  user-select: none;
+}
+
+#render {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
 }/*# sourceMappingURL=style.css.map */

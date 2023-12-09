@@ -148,6 +148,7 @@ $taskbar-height: 45px;
             }
         }
         h1 {
+            user-select: none;
             img {
                 width: 1rem;
                 aspect-ratio: 1/1;
@@ -182,6 +183,7 @@ $taskbar-height: 45px;
     transition: .35s;
     transition-timing-function: ease-in;
     .shortcut {
+        user-select: none;
         height: 50px;
         width: 100%;
         display: flex;
@@ -403,6 +405,7 @@ $np-header-height: 25px;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        user-select: none;
     }
 }
 #render {
